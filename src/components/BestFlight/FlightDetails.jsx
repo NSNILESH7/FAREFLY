@@ -1,52 +1,64 @@
 import React from "react";
 import { TbArrowsExchange2 } from "react-icons/tb";
 
-export default function Views({ input, bestf, otherf }) {
-  let best_flights = bestf.flights;
-  console.log(best_flights);
-  console.log(otherf);
+export default function FlightDetails({ flight ,input}) {
+  // const selectedData = flight.find(flight => flight.departure_airport.time === input.departure);
+  // console.log(selectedData);
   return (
-    <>
-      <div>
-        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-          Well Come to
-        </h1>
-        <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-          Here at Flowbite we focus on markets where technology, innovation, and
-          capital can unlock long-term value and drive economic growth.
+    <div>
+      {/* <div className="flight-details">
+        <h3>
+          {flight.airline} - {flight.flight_number}
+        </h3>
+        <img src={flight.airline_logo} alt={flight.airline} />
+        <p>
+          <strong>Departure:</strong> {flight.departure_airport.name} (
+          {flight.departure_airport.id}) at {flight.departure_airport.time}
         </p>
-      </div>
-      <br />
-      <br />
-      <br />
+        <p>
+          <strong>Arrival:</strong> {flight.arrival_airport.name} (
+          {flight.arrival_airport.id}) at {flight.arrival_airport.time}
+        </p>
+        <p>
+          <strong>Duration:</strong> {flight.duration} minutes
+        </p>
+        <p>
+          <strong>Airplane:</strong> {flight.airplane}
+        </p>
+        <p>
+          <strong>Class:</strong> {flight.travel_class}
+        </p>
+        <p>
+          <strong>Legroom:</strong> {flight.legroom}
+        </p> */}
+        {/* <p><strong>Extensions:</strong> {flight.extensions.join(', ')}</p> */}
+      {/* </div> */}
 
-      {best_flights.map((best) => (
-        <div className="flex flex-col md:flex-row space-y-4 md:space-y-">
+      
+      <div className="flex flex-col md:flex-row space-y-4 md:space-y-">
           <ol className="relative border-s border-gray-200 dark:border-gray-700">
             <li className="mb-10 ms-4">
               <div className="absolute w-3 h-3 bg-red-700 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
               <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
                   <h6 className="">
-                    {best.flights.departure_airport.time}
+                    {input.departure}
                     <TbArrowsExchange2 />
-                    {best.arrival_airport}
+                    {input.arival}
                   </h6>
               </time>
-              <h4>{best.price}₹</h4>
-              <img src={best.airline_logo} alt="" />
+              <h4>{}₹</h4>
+              <img src={flight.airline_logo} alt="" />
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white ">
-              {best.flights.airline}
+              {flight.airline}-{flight.flight_number}
               </h3>
-              <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
-                Get access to over 20+ pages including a dashboard layout,
-                charts, kanban board, calendar, and pre-order E-commerce &
-                Marketing pages.
-              </p>
+              <p>
+          <strong>Departure:</strong> {flight.departure_airport.time}
+        </p>
               <a
                 href="#"
                 className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
               >
-                Learn more{" "}
+                fly{" "}
                 <svg
                   className="w-3 h-3 ms-2 rtl:rotate-180"
                   aria-hidden="true"
@@ -66,7 +78,6 @@ export default function Views({ input, bestf, otherf }) {
             </li>
           </ol>
         </div>
-      ))}
-    </>
+    </div>
   );
 }
