@@ -1,9 +1,16 @@
-import React from "react";
-import FlightOption from "./BestFlightOptions";
+import {React,useState} from "react";
+import FlightOption from "./FlightOptions";
+import Flight from './Flight'
 
-export default function FlightList({ flighstData, input }) {
-  console.log(flighstData);
+export default function FlightList({ flighstData, input,setSelectedFlightIndex }) {
+  // console.log(flighstData);
 
+
+
+  const handleSelectFlight = (index) => {
+    setSelectedFlightIndex(flighstData[index]);
+  };
+  
   return (
     <>
       <div>
@@ -20,7 +27,7 @@ export default function FlightList({ flighstData, input }) {
 
       <div className="flight-list">
         {flighstData.map((flights, index) => (
-          <FlightOption key={index} flights={flights} input={input} i={index} />
+          <FlightOption key={index} flights={flights} input={input} i={index} handleSelectFlight={handleSelectFlight} />
         ))}
       </div>
     </>

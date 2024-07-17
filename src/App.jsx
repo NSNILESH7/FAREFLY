@@ -4,203 +4,214 @@ import axios from "axios";
 import { useRef } from "react";
 import Form from "./components/Form";
 import Views from "./components/views";
-import FlightList from "./components/BestFlight/BestFlightList";
-
+import FlightList from "./components/Flights/FlightList";
+import Flight from "./components/Flights/Flight.jsx";
+import { Outlet, useNavigate } from "react-router-dom";
+import { Flightlist } from "./store/flightsdetails.jsx";
+import Nav from "./components/Nav.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
+  let navigate = useNavigate();
+
   const [input, setInput] = useState({
     name: "nilesh",
-    departure: "IXE",
-    arival: "DEL",
+    departure: "",
+    arival: "",
     outboundDate: "yyyy/mm/dd",
     returnDate: "yyyy/mm/dd",
   });
 
-  const [bflight, setBFlight] = useState([[
-    {
-      flights: [
-        {
-          departure_airport: {
-            name: "Mangaluru International Airport",
-            id: "IXE",
-            time: "2024-07-17 20:00",
+  const [bflight, setBFlight] = useState([
+    [
+      {
+        flights: [
+          {
+            departure_airport: {
+              name: "Mangaluru International Airport",
+              id: "IXE",
+              time: "2024-07-17 20:00",
+            },
+            arrival_airport: {
+              name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
+              id: "BOM",
+              time: "2024-07-17 21:35",
+            },
+            duration: 95,
+            airplane: "Airbus A321neo",
+            airline: "IndiGo",
+            airline_logo:
+              "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
+            travel_class: "Economy",
+            flight_number: "6E 164",
+            legroom: "29 in",
+            extensions: [
+              "Below average legroom (29 in)",
+              "Carbon emissions estimate: 66 kg",
+            ],
           },
-          arrival_airport: {
+          {
+            departure_airport: {
+              name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
+              id: "BOM",
+              time: "2024-07-17 23:30",
+            },
+            arrival_airport: {
+              name: "Indira Gandhi International Airport",
+              id: "DEL",
+              time: "2024-07-18 01:35",
+            },
+            duration: 125,
+            airplane: "Airbus A321neo",
+            airline: "IndiGo",
+            airline_logo:
+              "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
+            travel_class: "Economy",
+            flight_number: "6E 2224",
+            legroom: "29 in",
+            extensions: [
+              "Below average legroom (29 in)",
+              "Carbon emissions estimate: 89 kg",
+            ],
+            often_delayed_by_over_30_min: true,
+          },
+        ],
+        layovers: [
+          {
+            duration: 115,
             name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
             id: "BOM",
-            time: "2024-07-17 21:35",
           },
-          duration: 95,
-          airplane: "Airbus A321neo",
-          airline: "IndiGo",
-          airline_logo:
-            "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
-          travel_class: "Economy",
-          flight_number: "6E 164",
-          legroom: "29 in",
-          extensions: [
-            "Below average legroom (29 in)",
-            "Carbon emissions estimate: 66 kg",
-          ],
+        ],
+        total_duration: 335,
+        carbon_emissions: {
+          this_flight: 156000,
+          typical_for_this_route: 157000,
+          difference_percent: -1,
         },
-        {
-          departure_airport: {
-            name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
-            id: "BOM",
-            time: "2024-07-17 23:30",
-          },
-          arrival_airport: {
-            name: "Indira Gandhi International Airport",
-            id: "DEL",
-            time: "2024-07-18 01:35",
-          },
-          duration: 125,
-          airplane: "Airbus A321neo",
-          airline: "IndiGo",
-          airline_logo:
-            "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
-          travel_class: "Economy",
-          flight_number: "6E 2224",
-          legroom: "29 in",
-          extensions: [
-            "Below average legroom (29 in)",
-            "Carbon emissions estimate: 89 kg",
-          ],
-          often_delayed_by_over_30_min: true,
-        },
-      ],
-      layovers: [
-        {
-          duration: 115,
-          name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
-          id: "BOM",
-        },
-      ],
-      total_duration: 335,
-      carbon_emissions: {
-        this_flight: 156000,
-        typical_for_this_route: 157000,
-        difference_percent: -1,
+        price: 13314,
+        type: "Round trip",
+        airline_logo:
+          "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
+        departure_token:
+          "WyJDalJJV1hSRlVVZE5MVTU0Y1dOQlQweGZiM2RDUnkwdExTMHRMUzB0YjNsalpuZ3hORUZCUVVGQlIyRk5SRlZGU0VSUU5HZEJFZ3cyUlRFMk5IdzJSVEl5TWpRYUNnaUNhQkFBR2dOSlRsSTRISERRZkE9PSIsW1siSVhFIiwiMjAyNC0wNy0xNyIsIkJPTSIsbnVsbCwiNkUiLCIxNjQiXSxbIkJPTSIsIjIwMjQtMDctMTciLCJERUwiLG51bGwsIjZFIiwiMjIyNCJdXV0=",
       },
-      price: 13314,
-      type: "Round trip",
-      airline_logo: "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
-      departure_token:
-        "WyJDalJJV1hSRlVVZE5MVTU0Y1dOQlQweGZiM2RDUnkwdExTMHRMUzB0YjNsalpuZ3hORUZCUVVGQlIyRk5SRlZGU0VSUU5HZEJFZ3cyUlRFMk5IdzJSVEl5TWpRYUNnaUNhQkFBR2dOSlRsSTRISERRZkE9PSIsW1siSVhFIiwiMjAyNC0wNy0xNyIsIkJPTSIsbnVsbCwiNkUiLCIxNjQiXSxbIkJPTSIsIjIwMjQtMDctMTciLCJERUwiLG51bGwsIjZFIiwiMjIyNCJdXV0=",
-    },
-    {
-      flights: [
-        {
-          departure_airport: {
-            name: "Mangaluru International Airport",
-            id: "IXE",
-            time: "2024-07-17 11:25",
+      {
+        flights: [
+          {
+            departure_airport: {
+              name: "Mangaluru International Airport",
+              id: "IXE",
+              time: "2024-07-17 11:25",
+            },
+            arrival_airport: {
+              name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
+              id: "BOM",
+              time: "2024-07-17 12:55",
+            },
+            duration: 90,
+            airplane: "Airbus A320neo",
+            airline: "IndiGo",
+            airline_logo:
+              "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
+            travel_class: "Economy",
+            flight_number: "6E 832",
+            legroom: "28 in",
+            extensions: [
+              "Below average legroom (28 in)",
+              "Carbon emissions estimate: 64 kg",
+            ],
+            often_delayed_by_over_30_min: true,
           },
-          arrival_airport: {
+          {
+            departure_airport: {
+              name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
+              id: "BOM",
+              time: "2024-07-17 14:15",
+            },
+            arrival_airport: {
+              name: "Indira Gandhi International Airport",
+              id: "DEL",
+              time: "2024-07-17 16:25",
+            },
+            duration: 130,
+            airplane: "Airbus A321neo",
+            airline: "IndiGo",
+            airline_logo:
+              "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
+            travel_class: "Economy",
+            flight_number: "6E 993",
+            legroom: "29 in",
+            extensions: [
+              "Below average legroom (29 in)",
+              "Carbon emissions estimate: 89 kg",
+            ],
+            often_delayed_by_over_30_min: true,
+          },
+        ],
+        layovers: [
+          {
+            duration: 80,
             name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
             id: "BOM",
-            time: "2024-07-17 12:55",
           },
-          duration: 90,
-          airplane: "Airbus A320neo",
-          airline: "IndiGo",
-          airline_logo:
-            "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
-          travel_class: "Economy",
-          flight_number: "6E 832",
-          legroom: "28 in",
-          extensions: [
-            "Below average legroom (28 in)",
-            "Carbon emissions estimate: 64 kg",
-          ],
-          often_delayed_by_over_30_min: true,
+        ],
+        total_duration: 300,
+        carbon_emissions: {
+          this_flight: 155000,
+          typical_for_this_route: 157000,
+          difference_percent: -1,
         },
-        {
-          departure_airport: {
-            name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
-            id: "BOM",
-            time: "2024-07-17 14:15",
-          },
-          arrival_airport: {
-            name: "Indira Gandhi International Airport",
-            id: "DEL",
-            time: "2024-07-17 16:25",
-          },
-          duration: 130,
-          airplane: "Airbus A321neo",
-          airline: "IndiGo",
-          airline_logo:
-            "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
-          travel_class: "Economy",
-          flight_number: "6E 993",
-          legroom: "29 in",
-          extensions: [
-            "Below average legroom (29 in)",
-            "Carbon emissions estimate: 89 kg",
-          ],
-          often_delayed_by_over_30_min: true,
-        },
-      ],
-      layovers: [
-        {
-          duration: 80,
-          name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
-          id: "BOM",
-        },
-      ],
-      total_duration: 300,
-      carbon_emissions: {
-        this_flight: 155000,
-        typical_for_this_route: 157000,
-        difference_percent: -1,
+        price: 13424,
+        type: "Round trip",
+        airline_logo:
+          "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
+        departure_token:
+          "WyJDalJJV1hSRlVVZE5MVTU0Y1dOQlQweGZiM2RDUnkwdExTMHRMUzB0YjNsalpuZ3hORUZCUVVGQlIyRk5SRlZGU0VSUU5HZEJFZ3MyUlRnek1udzJSVGs1TXhvS0NQQm9FQUFhQTBsT1VqZ2NjTlI5IixbWyJJWEUiLCIyMDI0LTA3LTE3IiwiQk9NIixudWxsLCI2RSIsIjgzMiJdLFsiQk9NIiwiMjAyNC0wNy0xNyIsIkRFTCIsbnVsbCwiNkUiLCI5OTMiXV1d",
       },
-      price: 13424,
-      type: "Round trip",
-      airline_logo: "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
-      departure_token:
-        "WyJDalJJV1hSRlVVZE5MVTU0Y1dOQlQweGZiM2RDUnkwdExTMHRMUzB0YjNsalpuZ3hORUZCUVVGQlIyRk5SRlZGU0VSUU5HZEJFZ3MyUlRnek1udzJSVGs1TXhvS0NQQm9FQUFhQTBsT1VqZ2NjTlI5IixbWyJJWEUiLCIyMDI0LTA3LTE3IiwiQk9NIixudWxsLCI2RSIsIjgzMiJdLFsiQk9NIiwiMjAyNC0wNy0xNyIsIkRFTCIsbnVsbCwiNkUiLCI5OTMiXV1d",
-    },
-    {
-      flights: [
-        {
-          departure_airport: {
-            name: "Mangaluru International Airport",
-            id: "IXE",
-            time: "2024-07-17 20:40",
+      {
+        flights: [
+          {
+            departure_airport: {
+              name: "Mangaluru International Airport",
+              id: "IXE",
+              time: "2024-07-17 20:40",
+            },
+            arrival_airport: {
+              name: "Indira Gandhi International Airport",
+              id: "DEL",
+              time: "2024-07-17 23:35",
+            },
+            duration: 175,
+            airplane: "Airbus A321neo",
+            airline: "IndiGo",
+            airline_logo:
+              "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
+            travel_class: "Economy",
+            flight_number: "6E 2344",
+            legroom: "29 in",
+            extensions: [
+              "Below average legroom (29 in)",
+              "Carbon emissions estimate: 122 kg",
+            ],
+            often_delayed_by_over_30_min: true,
           },
-          arrival_airport: {
-            name: "Indira Gandhi International Airport",
-            id: "DEL",
-            time: "2024-07-17 23:35",
-          },
-          duration: 175,
-          airplane: "Airbus A321neo",
-          airline: "IndiGo",
-          airline_logo:
-            "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
-          travel_class: "Economy",
-          flight_number: "6E 2344",
-          legroom: "29 in",
-          extensions: [
-            "Below average legroom (29 in)",
-            "Carbon emissions estimate: 122 kg",
-          ],
-          often_delayed_by_over_30_min: true,
+        ],
+        total_duration: 175,
+        carbon_emissions: {
+          this_flight: 122000,
+          typical_for_this_route: 157000,
+          difference_percent: -22,
         },
-      ],
-      total_duration: 175,
-      carbon_emissions: {
-        this_flight: 122000,
-        typical_for_this_route: 157000,
-        difference_percent: -22,
+        price: 13424,
+        type: "Round trip",
+        airline_logo:
+          "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
+        departure_token:
+          "WyJDalJJV1hSRlVVZE5MVTU0Y1dOQlQweGZiM2RDUnkwdExTMHRMUzB0YjNsalpuZ3hORUZCUVVGQlIyRk5SRlZGU0VSUU5HZEJFZ1kyUlRJek5EUWFDZ2p3YUJBQUdnTkpUbEk0SEhEVWZRPT0iLFtbIklYRSIsIjIwMjQtMDctMTciLCJERUwiLG51bGwsIjZFIiwiMjM0NCJdXV0=",
       },
-      price: 13424,
-      type: "Round trip",
-      airline_logo: "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
-      departure_token:
-        "WyJDalJJV1hSRlVVZE5MVTU0Y1dOQlQweGZiM2RDUnkwdExTMHRMUzB0YjNsalpuZ3hORUZCUVVGQlIyRk5SRlZGU0VSUU5HZEJFZ1kyUlRJek5EUWFDZ2p3YUJBQUdnTkpUbEk0SEhEVWZRPT0iLFtbIklYRSIsIjIwMjQtMDctMTciLCJERUwiLG51bGwsIjZFIiwiMjM0NCJdXV0=",
-    },
-  ]]);
+    ],
+  ]);
   const [oflight, setOFlight] = useState([
     [
       {
@@ -679,6 +690,7 @@ function App() {
     } catch (error) {
       console.error(error);
     }
+    navigate("/");
   };
 
   // useEffect(() => {
@@ -693,18 +705,99 @@ function App() {
   //     .catch((err) => console.log(err));
   // }, []);
 
+  const [selectedFlightIndex, setSelectedFlightIndex] = useState({
+    flights: [
+      {
+        departure_airport: {
+          name: "Mangaluru International Airport",
+          id: "IXE",
+          time: "2024-07-17 20:00",
+        },
+        arrival_airport: {
+          name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
+          id: "BOM",
+          time: "2024-07-17 21:35",
+        },
+        duration: 95,
+        airplane: "Airbus A321neo",
+        airline: "IndiGo",
+        airline_logo:
+          "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
+        travel_class: "Economy",
+        flight_number: "6E 164",
+        legroom: "29 in",
+        extensions: [
+          "Below average legroom (29 in)",
+          "Carbon emissions estimate: 66 kg",
+        ],
+      },
+      {
+        departure_airport: {
+          name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
+          id: "BOM",
+          time: "2024-07-17 23:30",
+        },
+        arrival_airport: {
+          name: "Indira Gandhi International Airport",
+          id: "DEL",
+          time: "2024-07-18 01:35",
+        },
+        duration: 125,
+        airplane: "Airbus A321neo",
+        airline: "IndiGo",
+        airline_logo:
+          "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
+        travel_class: "Economy",
+        flight_number: "6E 2224",
+        legroom: "29 in",
+        extensions: [
+          "Below average legroom (29 in)",
+          "Carbon emissions estimate: 89 kg",
+        ],
+        often_delayed_by_over_30_min: true,
+      },
+    ],
+    layovers: [
+      {
+        duration: 115,
+        name: "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
+        id: "BOM",
+      },
+    ],
+    total_duration: 335,
+    carbon_emissions: {
+      this_flight: 156000,
+      typical_for_this_route: 157000,
+      difference_percent: -1,
+    },
+    price: 13314,
+    type: "Round trip",
+    airline_logo: "https://www.gstatic.com/flights/airline_logos/70px/6E.png",
+    departure_token:
+      "WyJDalJJV1hSRlVVZE5MVTU0Y1dOQlQweGZiM2RDUnkwdExTMHRMUzB0YjNsalpuZ3hORUZCUVVGQlIyRk5SRlZGU0VSUU5HZEJFZ3cyUlRFMk5IdzJSVEl5TWpRYUNnaUNhQkFBR2dOSlRsSTRISERRZkE9PSIsW1siSVhFIiwiMjAyNC0wNy0xNyIsIkJPTSIsbnVsbCwiNkUiLCIxNjQiXSxbIkJPTSIsIjIwMjQtMDctMTciLCJERUwiLG51bGwsIjZFIiwiMjIyNCJdXV0=",
+  });
+
   return (
     <>
-      <Form submit={submit} input={input} fetch={fetchdata} />
-      {/* <Views input={input} bestf={bflight} otherf={oflight} /> */}
-      {bflight.map((option, index) => (
-        <FlightList key={index} flighstData={option} input={input}/>
-      ))}
-      <h2>other flights</h2>
-      
-      {oflight.map((option, index) => (
-      <FlightList key={index} flighstData={option} input={input}/>
-    ))}
+      <Flightlist.Provider
+        value={{
+          input,
+          bflight,
+          oflight,
+          setSelectedFlightIndex,
+          selectedFlightIndex,
+          fetchdata,
+          submit
+        }}
+      >
+        <Nav/>
+        {/* <Views input={input} bestf={bflight} otherf={oflight} /> */}
+
+        {/* <AllFlight></AllFlight>
+        <Flight/> */}
+        <Outlet />
+        <Footer/>
+      </Flightlist.Provider>
     </>
   );
 }

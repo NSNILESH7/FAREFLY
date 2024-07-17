@@ -1,7 +1,12 @@
 import React from "react";
-import { useState } from "react";
+import { Flightlist } from "../store/flightsdetails";
+import { useContext } from 'react';
 
-export default function Form({ submit, input, fetch }) {
+
+export default function Form() {
+  const  { submit, input, fetch }=useContext(Flightlist)
+
+
   // const departureref = useRef();
   // const arivalref = useRef();
   // const outboundref = useRef();
@@ -19,103 +24,68 @@ export default function Form({ submit, input, fetch }) {
 
   return (
     <>
-      <form action=""  method="POST" onSubmit={fetch}>
-        <div className="min-h-screen p-6 flex items-center justify-center bg-cyan-100 ">
-          <div className="container max-w-screen-lg mx-auto">
-            <h2 className="font-semibold text-x1 text-gray-600">
-              Responsive Form
-            </h2>
-            <p className="text-gray-500 mb-6">
-              Form is mobile responsive. Give it a try.
-            </p>
+      <div class="flex flex-col items-center bg- text-black w-full">
 
-            <div className="bg rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-              <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-                <div className="text-gray-600">
-                  <p className="font-medium text-lg">Personal Details</p>
-                  <p>Please fill out all the fields.</p>
-                </div>
-
-                <div className="lg:col-span-2">
-                  <div className=" grid gap-2 grid-cols-2 text-sm  md:grid-cols-2 ">
-                    <div className="md:col-span-5">
-                      <label htmlor="full_name">Name</label>
-                      <input
-                        type="text"
-                        name="name"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                        placeholder="enter your name"
-                        value={input.name}
-                        onChange={submit}
-                      />
-                    </div>
-                    <div className="md:col-span-5">
-                      <label htmlor="full_name">Departure</label>
-                      <input
-                        type="text"
-                        name="departure"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                        placeholder="Departure Location"
-                        value={input.departure}
-                        onChange={submit}
-                      />
-                    </div>
-
-                    <div className="md:col-span-5">
-                      <label htmlor="email">Arrival</label>
-                      <input
-                        type="text"
-                        name="arival"
-                        id="email"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                        placeholder="Arival Location"
-                        value={input.arival}
-                        onChange={submit}
-                      />
-                    </div>
-
-                    <div className="md:col-span-3">
-                      <label htmlor="address">outboundDate</label>
-                      <input
-                        type="date"
-                        name="outboundDate"
-                        id="address"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                        placeholder="dd/mm/yyyy"
-                        value={input.outboundDate}
-                        onChange={submit}
-                      />
-                    </div>
-
-                    <div className="md:col-span-2">
-                      <label htmlor="city">ReturnDate</label>
-                      <input
-                        type="date"
-                        name="returnDate"
-                        id="city"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                        placeholder="dd/mm/yyyy"
-                        value={input.returnDate}
-                        onChange={submit}
-                      />
-                    </div>
-                  </div>
-                  <div className="md:col-span-5 text-right">
-                    <div className="inline-flex items-end">
-                      <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        type="submit"
-                      >
-                        Submit
-                      </button>
-                    </div>
-                  </div>
-                </div>
+        <main class="w-5/6 my-32 ">
+          <div class="bg-[#e1c08e] p-8 rounded-lg shadow-md text-center">
+            <h1 class="mb-5">Discover A World Of Comfort And Convenience.</h1>
+            <form class="flex flex-wrap justify-center gap-4" onSubmit={fetch}>
+              <input
+                type="text"
+                name="departure"
+                placeholder="From Bengaluru (BLR)"
+                class="p-2 rounded border-none"
+                value={input.departure}
+                onChange={submit}
+              />
+              <input
+                type="text"
+                name="arival"
+                placeholder="To Country, city or airport"
+                class="p-2 rounded border-none"
+                value={input.arival}
+                onChange={submit}
+              />
+              <input
+                type="date"
+                name="outboundDate"
+                placeholder="Depart"
+                class="p-2 rounded border-none"
+                value={input.outboundDate}
+                onChange={submit}
+              />
+              <input
+                type="date"
+                name="returnDate"
+                placeholder="Return"
+                class="p-2 rounded border-none"
+                value={input.returnDate}
+                onChange={submit}
+              />
+              <select class="p-2 rounded border-none">
+                <option>Economy</option>
+              </select>
+              <button
+                type="submit"
+                class="p-2 rounded bg-orange-500 text-white hover:bg-orange-600"
+              >
+                Search
+              </button>
+              <div class="flex gap-5 mt-2 ml-0">
+                <label>
+                  <input type="checkbox" class="mr-2" /> Add nearby airports
+                </label>
+                <label>
+                  <input type="checkbox" class="mr-2" /> Add nearby airports
+                </label>
+                <label>
+                  <input type="checkbox" class="mr-2" /> Direct flights
+                </label>
               </div>
-            </div>
+            </form>
           </div>
-        </div>
-      </form>
+        </main>
+      </div>
     </>
   );
 }
