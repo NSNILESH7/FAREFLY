@@ -20,8 +20,8 @@ export default function Views({ input, bestf, otherf }) {
       <br />
       <br />
 
-      {best_flights.map((best) => (
-        <div className="flex flex-col md:flex-row space-y-4 md:space-y-">
+      {best_flights.map((best ,index) => (
+        <div className="flex flex-col md:flex-row space-y-4 md:space-y-" key={index}>
           <ol className="relative border-s border-gray-200 dark:border-gray-700">
             <li className="mb-10 ms-4">
               <div className="absolute w-3 h-3 bg-red-700 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>

@@ -1,69 +1,148 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import React from "react";
 import { Link } from "react-router-dom";
+import {ScrollTrigger} from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function home() {
-  let v = "";
+  useGSAP(()=>{
+    gsap.from("#title",{
+      opacity:0,
+      duration:2,
+      delay:1,
+      ease:"power3.out",
+      scrollTrigger:{
+        trigger:"#l1,#i2",
+        scroller:"body",
+        start:"top 40%",
+        end:"bottom center",
+        // markers:true,
+      }
+  })
+  
+  gsap.from("#l1,#i2",{
+    opacity:0,
+    x:-100,
+    duration:1,
+    delay:.1,
+    scrollTrigger:{
+      trigger:"#l1,#i2",
+      scroller:"body",
+      start:"top 40%",
+      end:"bottom center",
+      // markers:true,
+    }
+  })
+  gsap.from("#i1,#l2",{
+    opacity:0,
+    x:100,
+    duration:1,
+    delay:.1,
+    scrollTrigger:{
+      trigger:"#i1,#l2",
+      scroller:"body",
+      start:"top 40%",
+      end:"bottom center",
+      
+    }
+  })
+  gsap.from("#l3",{
+    opacity:0,
+    x:-100,
+    duration:1,
+    delay:.1,
+    scrollTrigger:{
+      trigger:"#l3",
+      scroller:"body",
+      start:"top 70%",
+      end:"bottom center",
+      markers:true,
+    }
+  })
+  gsap.from("#l4",{
+    opacity:0,
+    x:100,
+    duration:1,
+    delay:.1,
+    scrollTrigger:{
+      trigger:"#l4",
+      scroller:"body",
+      start:"top 70%",
+      end:"bottom center",
+      markers:true,
+    }
+  })
+  gsap.from("#h3",{
+    opacity:0,
+    x:-100,
+    duration:2,
+    delay:.1,
+    scrollTrigger:{
+      trigger:"#h3",
+      scroller:"body",
+      start:"top 70%",
+      end:"bottom center",
+      markers:true,
+    }
+  })
+})
   return (
     <>
-      <body class="leading-normal tracking-normal text-white gradient ">
-        
-        <div class="pt-24">
-          <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
-            <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-              <p class="uppercase tracking-loose w-full">
-                What business are you?
-              </p>
-              <h1 class="my-4 text-5xl font-bold leading-tight">
-                Main Hero Message to sell yourself!
-              </h1>
-              <p class="leading-normal text-2xl mb-8">
-                Sub-hero message, not too long and not too short. Make it just
-                right!
+      <body className="leading-normal tracking-normal text-pink-600 gradient ">
+        <div className="pt-24">
+          <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+            <div className="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
+              
+              <h3 className="my-4 text-3xl font-bold leading-tight" id="h3">
+                Thrifty Wings aims to provide affordable, safe, and efficient
+                air travel while ensuring high customer satisfaction and
+                environmental responsibility
+              </h3>
+              <p className="leading-normal text-2xl mb-8" id="h3">
+                "Fly Smart, Fly Thrifty!"
               </p>
             </div>
-            <div class="w-full md:w-3/5 py-6 text-center"></div>
+            <div className="w-full md:w-3/5 py-6 text-center"></div>
           </div>
         </div>
-        <div class="relative mt-1 lg:mt-28">
+        <div className="relative mt-1 lg:mt-28">
           <center>
             <Link to={"/search"}>
-            <button class="ml-20 lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-              Srearch Flights
-            </button>
+              <button className="ml-20 lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                Srearch Flights
+              </button>
             </Link>
-            
           </center>
         </div>
 
-        <section class="bg-white border-b py-8 mt-6">
-          <div class="container max-w-5xl mx-auto m-8">
-            <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-              Title
+        <section className="bg-white border-b py-8 mt-6">
+          <div className="container max-w-5xl mx-auto m-8">
+            <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800" id="title">
+            ThriftyWings
             </h1>
-            <div class="w-full mb-4">
-              <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+            <div className="w-full mb-4">
+              <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
             </div>
-            <div class="flex flex-wrap">
-              <div class="w-5/6 sm:w-1/2 p-6">
-                <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-                  Lorem ipsum dolor sit amet
+            <div className="flex flex-wrap">
+              <div className="w-5/6 sm:w-1/2 p-6" id="l1">
+                <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
+                Affordable Flights, Unforgettable Journeys.
                 </h3>
-                <p class="text-gray-600 mb-8">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
+                <p className="text-gray-600 mb-8">
+                Discover new destinations and create lasting memories, all while staying within your budget. Choose ThriftyWings for your next adventure!
                   <br />
                   <br />
-                  Images from:
-                  <a class="text-pink-500 underline" href="https://undraw.co/">
-                    undraw.co
-                  </a>
+                  
                 </p>
               </div>
-              <div class="w-full sm:w-1/2 p-6">
+              <div className="w-full sm:w-1/2 p-6" id="i1">
                 <svg
-                  class="w-full sm:h-64 mx-auto"
+                  className="w-full sm:h-64 mx-auto"
                   viewBox="0 0 1177 598.5"
                   xmlns="http://www.w3.org/2000/svg"
+                  
                 >
                   <title>travel booking</title>
                   <path
@@ -333,14 +412,14 @@ export default function home() {
                 </svg>
               </div>
             </div>
-            <div class="flex flex-wrap flex-col-reverse sm:flex-row">
-              <div class="w-full sm:w-1/2 p-6 mt-6">
+            <div className="flex flex-wrap flex-col-reverse sm:flex-row">
+              <div className="w-full sm:w-1/2 p-6 mt-6" id="i2">
                 <svg
-                  class="w-5/6 sm:h-64 mx-auto"
+                  className="w-5/6 sm:h-64 mx-auto"
                   viewBox="0 0 1176.60617 873.97852"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <title>connected world</title>
+                  <title className="text-black">connected world</title>
                   <path
                     transform="translate(-11.697 -13.011)"
                     d="m1095.7 225.46c-133.54-185.83-415.64-261.21-693.08-180.02-146.67 42.921-288.09 128.92-358.18 295.44-125.28 297.67 137.76 392.74 309.77 423.04 83.172 14.651 161.51 39.263 233.09 72.771 128.78 60.284 356.74 113.7 528.63-137.41 124.59-182.01 68.722-350.04-20.23-473.82z"
@@ -491,19 +570,19 @@ export default function home() {
                   <circle cx="600.35" cy="480.68" r="11.968" fill="#ff6347" />
                 </svg>
               </div>
-              <div class="w-full sm:w-1/2 p-6 mt-6">
-                <div class="align-middle">
-                  <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+              <div className="w-full sm:w-1/2 p-6 mt-6">
+                <div className="align-middle" id="l2">
+                  <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
                     Lorem ipsum dolor sit amet
                   </h3>
-                  <p class="text-gray-600 mb-8">
+                  <p className="text-gray-600 mb-8" >
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
                     <br />
                     <br />
                     Images from:
                     <a
-                      class="text-pink-500 underline"
+                      className="text-pink-500 underline"
                       href="https://undraw.co/"
                     >
                       undraw.co
@@ -516,7 +595,7 @@ export default function home() {
         </section>
 
         <svg
-          class="wave-top"
+          className="wave-top"
           viewBox="0 0 1439 147"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -524,7 +603,7 @@ export default function home() {
         >
           <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
-              <g class="wave" fill="#f8fafc">
+              <g className="wave" fill="#f8fafc">
                 <path d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z"></path>
               </g>
               <g transform="translate(1.000000, 15.000000)" fill="#FFFFFF">
@@ -546,20 +625,20 @@ export default function home() {
             </g>
           </g>
         </svg>
-        <section class="container mx-auto text-center py-6 mb-12">
-          <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
+        <section className="container mx-auto text-center py-6 mb-12">
+          <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-white" id="l3">
             Call to Action
           </h1>
-          <div class="w-full mb-4">
-            <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
+          <div className="w-full mb-4">
+            <div className="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
           </div>
-          <h3 class="my-4 text-3xl leading-tight">
-            Main Hero Message to sell yourself!
+          <h3 className="my-4 text-3xl font-semibold leading-tight" id="l4">
+          Fly Smart, Fly Thrifty!
           </h3>
           <Link to={"/search"}>
-          <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-            Serach Flights
-          </button>
+            <button className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+              Serach Flights
+            </button>
           </Link>
         </section>
       </body>
